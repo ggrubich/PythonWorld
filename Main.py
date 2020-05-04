@@ -5,6 +5,7 @@ from Organisms.Sheep import Sheep
 from Organisms.Dandelion import Dandelion
 from Organisms.Wolf import Wolf
 from Organisms.Toadstool import Toadstool
+from Organisms.Antelope import Antelope
 import os
 
 def clear():
@@ -30,6 +31,8 @@ if __name__ == '__main__':
 
     newOrg = Toadstool(position=Position(xPosition=4, yPosition=4), world=pyWorld)
     pyWorld.addOrganism(newOrg)
+
+    pyWorld.addOrganism(Antelope(position=Position(xPosition=6, yPosition=7), world=pyWorld))
 
     clear()
     print(pyWorld)
