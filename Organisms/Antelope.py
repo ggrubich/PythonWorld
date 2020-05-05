@@ -27,8 +27,8 @@ class Antelope(Animal):
 
     def escape(self, threat):
         pos = Position(
-            xPosition=self.position.x + 2 * (self.position.x - threat.position.x),
-            yPosition=self.position.y + 2 * (self.position.y - threat.position.y),
+            self.position.x + 2 * (self.position.x - threat.position.x),
+            self.position.y + 2 * (self.position.y - threat.position.y),
         )
         destPos = pos if self.world.positionOnBoard(pos) else threat.position
         destOrg = self.world.getOrganismFromPosition(destPos)

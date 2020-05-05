@@ -1,5 +1,4 @@
 from Action import *
-from Position import Position
 
 from abc import ABC, abstractmethod
 

@@ -83,9 +83,7 @@ class World(object):
         action.run()
 
     def addOrganism(self, newOrganism):
-        newOrgPosition = Position(xPosition=newOrganism.position.x, yPosition=newOrganism.position.y)
-
-        if self.positionOnBoard(newOrgPosition):
+        if self.positionOnBoard(newOrganism.position):
             self.organisms.append(newOrganism)
             self.organisms.sort(key=lambda org: org.initiative, reverse=True)
             return True
@@ -114,7 +112,7 @@ class World(object):
 
         for y in range(-1, 2):
             for x in range(-1, 2):
-                pomPosition = Position(xPosition=position.x + x, yPosition=position.y + y)
+                pomPosition = Position(position.x + x, position.y + y)
                 if self.positionOnBoard(pomPosition) and not (y == 0 and x == 0):
                     result.append(pomPosition)
         return result
@@ -149,7 +147,7 @@ class World(object):
         result = '\nturn: ' + str(self.__turn) + '\n'
         for wY in range(0, self.worldY):
             for wX in range(0, self.worldX):
-                org = self.getOrganismFromPosition(Position(xPosition=wX, yPosition=wY))
+                org = self.getOrganismFromPosition(Position(wX, wY))
                 if org:
                     result += str(org.sign)
                 else:

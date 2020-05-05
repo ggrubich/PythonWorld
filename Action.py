@@ -44,7 +44,7 @@ class Remove(Action):
         return '{}: remove from {}'.format(name(self.organism), self.organism.position)
 
     def run(self):
-        self.organism.position = Position(xPosition=-1, yPosition=-1)
+        self.organism.position = Position.invalid()
 
 @dataclass
 class Move(Action):

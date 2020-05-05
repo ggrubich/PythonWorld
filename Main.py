@@ -17,22 +17,22 @@ def clear():
 if __name__ == '__main__':
     pyWorld = World(8, 8)
 
-    newOrg = Grass(position=Position(xPosition=4, yPosition=0), world=pyWorld)
+    newOrg = Grass(position=Position(4, 0), world=pyWorld)
     pyWorld.addOrganism(newOrg)
 
-    newOrg = Sheep(position=Position(xPosition=0, yPosition=0), world=pyWorld)
+    newOrg = Sheep(position=Position(0, 0), world=pyWorld)
     pyWorld.addOrganism(newOrg)
 
-    newOrg = Dandelion(position=Position(xPosition=0, yPosition=4), world=pyWorld)
+    newOrg = Dandelion(position=Position(0, 4), world=pyWorld)
     pyWorld.addOrganism(newOrg)
     
-    newOrg = Wolf(position=Position(xPosition=7, yPosition=7), world=pyWorld)
+    newOrg = Wolf(position=Position(7, 7), world=pyWorld)
     pyWorld.addOrganism(newOrg)
 
-    newOrg = Toadstool(position=Position(xPosition=4, yPosition=4), world=pyWorld)
+    newOrg = Toadstool(position=Position(4, 4), world=pyWorld)
     pyWorld.addOrganism(newOrg)
 
-    pyWorld.addOrganism(Antelope(position=Position(xPosition=6, yPosition=7), world=pyWorld))
+    pyWorld.addOrganism(Antelope(position=Position(6, 7), world=pyWorld))
 
     clear()
     print(pyWorld)
