@@ -1,7 +1,5 @@
 from Position import Position
 from Organisms.Plant import Plant
-from Action import Action
-from ActionEnum import ActionEnum
 
 
 class World(object):
@@ -82,14 +80,7 @@ class World(object):
 
     def makeMove(self, action):
         print(action)
-        if action.action == ActionEnum.A_ADD:
-            self.newOrganisms.append(action.organism)
-        elif action.action == ActionEnum.A_INCREASEPOWER:
-            action.organism.power += action.value
-        elif action.action == ActionEnum.A_MOVE:
-            action.organism.position = action.position
-        elif action.action == ActionEnum.A_REMOVE:
-            action.organism.position = Position(xPosition=-1, yPosition=-1)
+        action.run()
 
     def addOrganism(self, newOrganism):
         newOrgPosition = Position(xPosition=newOrganism.position.x, yPosition=newOrganism.position.y)

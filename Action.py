@@ -1,36 +1,59 @@
-from ActionEnum import ActionEnum
+from __future__ import annotations
+
+from Organisms.Organism import *
+from Position import Position
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 
-class Action(object):
+__all__ = [
+    'Action',
+    'Add',
+    'Remove',
+    'Move',
+]
 
-    def __init__(self, action, position, value, organism):
-        self.__action = action
-        self.__position = position
-        self.__value = value
-        self.__organism = organism
+class Action(ABC):
 
-    @property
-    def action(self):
-        return self.__action
+    @abstractmethod
+    def run(self):
+        pass
 
-    @property
-    def position(self):
-        return self.__position
+def name(organism):
+    return organism.__class__.__name__
 
-    @property
-    def value(self):
-        return self.__value
+@dataclass
+class Add(Action):
 
-    @property
-    def organism(self):
-        return self.__organism
+    organism: Organism
 
     def __str__(self):
-        className = self.organism.__class__.__name__
-        choice = {
-            ActionEnum.A_ADD: '{0}: add at: {1}'.format(className, self.position),
-            ActionEnum.A_INCREASEPOWER: '{0} increase power: {1}'.format(className, self.value),
-            ActionEnum.A_MOVE: '{0} move form: {1} to: {2}'.format(className, self.organism.position, self.position),
-            ActionEnum.A_REMOVE: '{0} remove form: {1}'.format(className, self.organism.position)
-        }
-        return choice[self.action]
+        return '{}: add at {}'.format(name(self.organism), self.organism.position)
+
+    def run(self):
+        world = self.organism.world
+        world.newOrganisms.append(self.organism)
+
+@dataclass
+class Remove(Action):
+
+    organism: Organism
+
+    def __str__(self):
+        return '{}: remove from {}'.format(name(self.organism), self.organism.position)
+
+    def run(self):
+        self.organism.position = Position(xPosition=-1, yPosition=-1)
+
+@dataclass
+class Move(Action):
+
+    organism: Organism
+    position: Position
+
+    def __str__(self):
+        return '{}: move from {} to {}'.format(name(self.organism), self.organism.position, self.position)
+
+    def run(self):
+        self.organism.position = self.position

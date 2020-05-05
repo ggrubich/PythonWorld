@@ -1,6 +1,5 @@
 from .Organism import Organism
-from Action import Action
-from ActionEnum import ActionEnum
+from Action import *
 import random
 
 
@@ -27,7 +26,7 @@ class Plant(Organism):
                 newPlant.initParams()
                 newPlant.position = newPosition
                 self.power = self.power / 2
-                result.append(Action(ActionEnum.A_ADD, newPosition, 0, newPlant))
+                result.append(Add(newPlant))
         return result
 
     def getFreeNeighboringPosition(self, position):

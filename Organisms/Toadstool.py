@@ -1,7 +1,6 @@
 from .Plant import Plant
 from Position import Position
-from Action import Action
-from ActionEnum import ActionEnum
+from Action import *
 
 
 class Toadstool(Plant):
@@ -23,8 +22,8 @@ class Toadstool(Plant):
         result = []
 
         if self.power > atackingOrganism.power:
-            result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, atackingOrganism))
+            result.append(Remove(atackingOrganism))
         else:
-            result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, self))
-            result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, atackingOrganism))
+            result.append(Remove(self))
+            result.append(Remove(atackingOrganism))
         return result

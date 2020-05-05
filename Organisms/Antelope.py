@@ -1,8 +1,7 @@
 from .Animal import Animal
 from .Wolf import Wolf
 from Position import Position
-from Action import Action
-from ActionEnum import ActionEnum
+from Action import *
 
 
 class Antelope(Animal):
@@ -33,7 +32,7 @@ class Antelope(Animal):
         )
         destPos = pos if self.world.positionOnBoard(pos) else threat.position
         destOrg = self.world.getOrganismFromPosition(destPos)
-        result = [Action(ActionEnum.A_MOVE, destPos, None, self)]
+        result = [Move(self, destPos)]
         if destOrg is not None:
             result.extend(destOrg.consequences(self))
         return result
