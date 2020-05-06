@@ -5,85 +5,29 @@ from abc import ABC, abstractmethod
 class Organism(ABC):
 
     def __init__(self, organism, position, world):
-        self.__power = None
-        self.__initiative = None
-        self.__position = None
-        self.__liveLength = None
-        self.__powerToReproduce = None
-        self.__sign = None
-        self.__world = None
+        self.power = None
+        self.initiative = None
+        self.position = None
+        self.liveLength = None
+        self.powerToReproduce = None
+        self.sign = None
+        self.world = None
 
         if organism is not None:
-            self.__power = organism.power
-            self.__initiative = organism.initiative
-            self.__position = organism.position
-            self.__liveLength = organism.liveLength
-            self.__powerToReproduce = organism.powerToReproduce
-            self.__sign = organism.sign
-            self.__world = organism.__world
+            self.power = organism.power
+            self.initiative = organism.initiative
+            self.position = organism.position
+            self.liveLength = organism.liveLength
+            self.powerToReproduce = organism.powerToReproduce
+            self.sign = organism.sign
+            self.world = organism.world
         else:
             if position is not None:
-                self.__position = position
+                self.position = position
             if world is not None:
-                self.__world = world
+                self.world = world
             self.initParams()
 
-
-    @property
-    def power(self):
-        return self.__power
-
-    @power.setter
-    def power(self, value):
-        self.__power = value
-
-    @property
-    def initiative(self):
-        return self.__initiative
-
-    @initiative.setter
-    def initiative(self, value):
-        self.__initiative = value
-
-    @property
-    def position(self):
-        return self.__position
-
-    @position.setter
-    def position(self, value):
-        self.__position = value
-
-    @property
-    def liveLength(self):
-        return self.__liveLength
-
-    @liveLength.setter
-    def liveLength(self, value):
-        self.__liveLength = value
-
-    @property
-    def powerToReproduce(self):
-        return self.__powerToReproduce
-
-    @powerToReproduce.setter
-    def powerToReproduce(self, value):
-        self.__powerToReproduce = value
-
-    @property
-    def sign(self):
-        return self.__sign
-
-    @sign.setter
-    def sign(self, value):
-        self.__sign = value
-
-    @property
-    def world(self):
-        return self.__world
-
-    @world.setter
-    def world(self, value):
-        self.__world = value
 
     @abstractmethod
     def move(self):
