@@ -3,9 +3,6 @@ from .Animal import Animal
 
 class Wolf(Animal):
 
-    def __init__(self, wolf=None, position=None, world=None):
-        super(Wolf, self).__init__(wolf, position, world)
-
     def clone(self):
         return Wolf(self, None, None)
 

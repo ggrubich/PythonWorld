@@ -4,9 +4,6 @@ from Action import *
 
 class Toadstool(Plant):
 
-    def __init__(self, toadstool=None, position=None, world=None):
-        super(Toadstool, self).__init__(toadstool, position, world)
-
     def clone(self):
         return Toadstool(self, None, None)
 

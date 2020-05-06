@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class Organism(ABC):
 
-    def __init__(self, organism, position, world):
+    def __init__(self, organism=None, position=None, world=None):
         self.power = None
         self.initiative = None
         self.position = None

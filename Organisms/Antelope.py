@@ -5,8 +5,6 @@ from Action import *
 
 
 class Antelope(Animal):
-    def __init__(self, sheep=None, position=None, world=None):
-        super().__init__(sheep, position, world)
 
     def clone(self):
         return Antelope(self, None, None)

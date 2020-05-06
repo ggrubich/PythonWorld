@@ -5,9 +5,6 @@ import random
 
 class Plant(Organism):
 
-    def __init__(self, plant=None, position=None, world=None):
-        super(Plant, self).__init__(plant, position, world)
-
     def move(self):
         result = []
         return result

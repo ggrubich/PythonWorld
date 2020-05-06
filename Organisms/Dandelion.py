@@ -3,9 +3,6 @@ from .Plant import Plant
 
 class Dandelion(Plant):
 
-    def __init__(self, dandelion=None, position=None, world=None):
-        super(Dandelion, self).__init__(dandelion, position, world)
-
     def clone(self):
         return Dandelion(self, None, None)
 
