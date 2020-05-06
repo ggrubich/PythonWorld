@@ -5,18 +5,6 @@ import random
 
 class Animal(Organism):
 
-    def __init__(self, animal=None, position=None, world=None):
-        super(Animal, self).__init__(animal, position, world)
-        self.__lastPosition = position
-
-    @property
-    def lastPosition(self):
-        return self.__lastPosition
-
-    @lastPosition.setter
-    def lastPosition(self, value):
-        self.__lastPosition = value
-
     def move(self):
         result = []
         pomPositions = self.getNeighboringPositions()
@@ -25,7 +13,6 @@ class Animal(Organism):
         if pomPositions:
             newPosition = random.choice(pomPositions)
             result.append(Move(self, newPosition))
-            self.lastPosition = self.position
             metOrganism = self.world.getOrganismFromPosition(newPosition)
             if metOrganism is not None:
                 result.extend(metOrganism.consequences(self))
