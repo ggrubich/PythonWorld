@@ -4,9 +4,6 @@ from Action import *
 
 class Toadstool(Plant):
 
-    def clone(self):
-        return Toadstool(self, None, None)
-
     def initParams(self):
         self.power = 0
         self.initiative = 0

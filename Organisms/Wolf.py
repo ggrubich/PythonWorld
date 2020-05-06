@@ -3,9 +3,6 @@ from .Animal import Animal
 
 class Wolf(Animal):
 
-    def clone(self):
-        return Wolf(self, None, None)
-
     def initParams(self):
         self.power = 6
         self.initiative = 5

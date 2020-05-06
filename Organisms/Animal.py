@@ -24,10 +24,8 @@ class Animal(Organism):
         birthPositions = self.getNeighboringBirthPositions()
 
         if self.ifReproduce() and birthPositions:
-            newAnimalPosition = random.choice(birthPositions)
-            newAnimal = self.clone()
-            newAnimal.initParams()
-            newAnimal.position = newAnimalPosition
+            newPosition = random.choice(birthPositions)
+            newAnimal = self.__class__(newPosition, self.world)
             self.power = self.power / 2
             result.append(Add(newAnimal))
         return result

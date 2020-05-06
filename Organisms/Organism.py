@@ -2,32 +2,22 @@ from Action import *
 
 from abc import ABC, abstractmethod
 
+
 class Organism(ABC):
 
-    def __init__(self, organism=None, position=None, world=None):
+    def __init__(self, position, world):
+        self.position = position
+        self.world = world
         self.power = None
         self.initiative = None
-        self.position = None
         self.liveLength = None
         self.powerToReproduce = None
         self.sign = None
-        self.world = None
+        self.initParams()
 
-        if organism is not None:
-            self.power = organism.power
-            self.initiative = organism.initiative
-            self.position = organism.position
-            self.liveLength = organism.liveLength
-            self.powerToReproduce = organism.powerToReproduce
-            self.sign = organism.sign
-            self.world = organism.world
-        else:
-            if position is not None:
-                self.position = position
-            if world is not None:
-                self.world = world
-            self.initParams()
-
+    @abstractmethod
+    def initParams(self):
+        pass
 
     @abstractmethod
     def move(self):
@@ -35,14 +25,6 @@ class Organism(ABC):
 
     @abstractmethod
     def action(self):
-        pass
-
-    @abstractmethod
-    def initParams(self):
-        pass
-
-    @abstractmethod
-    def clone(self):
         pass
 
     def consequences(self, atackingOrganism):

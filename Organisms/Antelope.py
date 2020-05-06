@@ -6,9 +6,6 @@ from Action import *
 
 class Antelope(Animal):
 
-    def clone(self):
-        return Antelope(self, None, None)
-
     def initParams(self):
         self.power = 3
         self.initiative = 10

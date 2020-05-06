@@ -19,9 +19,7 @@ class Plant(Organism):
 
             if pomPositions:
                 newPosition = random.choice(pomPositions)
-                newPlant = self.clone()
-                newPlant.initParams()
-                newPlant.position = newPosition
+                newPlant = self.__class__(newPosition, self.world)
                 self.power = self.power / 2
                 result.append(Add(newPlant))
         return result
