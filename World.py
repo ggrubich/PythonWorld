@@ -51,7 +51,9 @@ class World(object):
     def makeTurn(self):
         actions = []
 
-        for org in self.organisms:
+        queue = self.organisms.copy()
+        queue.sort(key=lambda o: o.initiative, reverse=True)
+        for org in queue:
             if not org.frozen and self.positionOnBoard(org.position):
                 actions = org.move()
                 for a in actions:
@@ -63,19 +65,16 @@ class World(object):
                         self.makeMove(a)
                     actions = []
 
-        self.organisms = [o for o in self.organisms if self.positionOnBoard(o.position)]
-        for o in self.organisms:
-            if not o.frozen:
-                o.liveLength -= 1
-                o.power += 1
-            o.frozen = False
-            if o.liveLength < 1:
-                print(str(o.__class__.__name__) + ': died of old age at: ' + str(o.position))
+        for org in self.organisms:
+            if not org.frozen:
+                org.liveLength -= 1
+                org.power += 1
+            org.frozen = False
+            if org.liveLength < 1:
+                print(str(org.__class__.__name__) + ': died of old age at: ' + str(org.position))
         self.organisms = [o for o in self.organisms if o.liveLength > 0]
 
-        self.newOrganisms = [o for o in self.newOrganisms if self.positionOnBoard(o.position)]
         self.organisms.extend(self.newOrganisms)
-        self.organisms.sort(key=lambda o: o.initiative, reverse=True)
         self.newOrganisms = []
 
         self.turn += 1
@@ -85,28 +84,23 @@ class World(object):
         action.run()
 
     def addOrganism(self, newOrganism):
-        if self.positionOnBoard(newOrganism.position):
-            self.organisms.append(newOrganism)
-            self.organisms.sort(key=lambda org: org.initiative, reverse=True)
-            return True
-        return False
+        self.organisms.append(newOrganism)
+
+    def scheduleOrganism(self, organism):
+        self.newOrganisms.append(organism)
+
+    def removeOrganism(self, organism):
+        self.organisms.remove(organism)
+        organism.position = Position.invalid()
 
     def positionOnBoard(self, position):
         return position.x >= 0 and position.y >= 0 and position.x < self.worldX and position.y < self.worldY
 
     def getOrganismFromPosition(self, position):
-        pomOrganism = None
-
         for org in self.organisms:
             if org.position == position:
-                pomOrganism = org
-                break
-        if pomOrganism is None:
-            for org in self.newOrganisms:
-                if org.position == position:
-                    pomOrganism = org
-                    break
-        return pomOrganism
+                return org
+        return None
 
     def getNeighboringPositions(self, position):
         result = []

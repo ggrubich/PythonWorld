@@ -34,7 +34,7 @@ class Add(Action):
 
     def run(self):
         world = self.organism.world
-        world.newOrganisms.append(self.organism)
+        world.scheduleOrganism(self.organism)
 
 @dataclass
 class Remove(Action):
@@ -45,7 +45,8 @@ class Remove(Action):
         return '{}: remove from {}'.format(name(self.organism), self.organism.position)
 
     def run(self):
-        self.organism.position = Position.invalid()
+        world = self.organism.world
+        world.removeOrganism(self.organism)
 
 @dataclass
 class Move(Action):
