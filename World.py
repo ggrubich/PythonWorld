@@ -52,7 +52,7 @@ class World(object):
         actions = []
 
         for org in self.organisms:
-            if self.positionOnBoard(org.position):
+            if not org.frozen and self.positionOnBoard(org.position):
                 actions = org.move()
                 for a in actions:
                     self.makeMove(a)
@@ -65,8 +65,10 @@ class World(object):
 
         self.organisms = [o for o in self.organisms if self.positionOnBoard(o.position)]
         for o in self.organisms:
-            o.liveLength -= 1
-            o.power += 1
+            if not o.frozen:
+                o.liveLength -= 1
+                o.power += 1
+            o.frozen = False
             if o.liveLength < 1:
                 print(str(o.__class__.__name__) + ': died of old age at: ' + str(o.position))
         self.organisms = [o for o in self.organisms if o.liveLength > 0]

@@ -12,6 +12,7 @@ __all__ = [
     'Add',
     'Remove',
     'Move',
+    'Freeze',
 ]
 
 class Action(ABC):
@@ -57,3 +58,14 @@ class Move(Action):
 
     def run(self):
         self.organism.position = self.position
+
+@dataclass
+class Freeze(Action):
+
+    organism: Organism
+
+    def __str__(self):
+        return '{}: gets frozen'.format(name(self.organism))
+
+    def run(self):
+        self.organism.frozen = True

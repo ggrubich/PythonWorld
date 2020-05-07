@@ -6,8 +6,12 @@ from abc import ABC, abstractmethod
 class Organism(ABC):
 
     def __init__(self, position, world):
+        # state
         self.position = position
         self.world = world
+        self.frozen = False
+
+        # params
         self.power = None
         self.initiative = None
         self.liveLength = None
@@ -27,13 +31,12 @@ class Organism(ABC):
     def action(self):
         pass
 
-    def consequences(self, atackingOrganism):
+    def consequences(self, attackingOrganism):
         result = []
-
-        if self.power > atackingOrganism.power:
-            result.append(Remove(atackingOrganism))
-        else:
+        if self.frozen or attackingOrganism.power >= self.power:
             result.append(Remove(self))
+        else:
+            result.append(Remove(attackingOrganism))
         return result
 
     def ifReproduce(self):
