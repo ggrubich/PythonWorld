@@ -37,11 +37,7 @@ class Organism(ABC):
         return result
 
     def ifReproduce(self):
-        result = False
-
-        if self.power >= self.powerToReproduce:
-            result = True
-        return result
+        return self.power >= self.powerToReproduce
 
     def __str__(self):
         return '{0}: power: {1} initiative: {2} liveLength {3} position: {4}'\
