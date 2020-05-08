@@ -69,14 +69,18 @@ class Game(object):
         print(self._world)
 
         for _ in range(0, 100):
-            print('Press `Enter` for next turn, `a` to add an organism')
-            choice = input('> ')
+            print('Press `Enter` for next turn, `a` to add an organism, `q` to quit')
+            choice = input('> ').strip()
+            if choice == '':
+                self.clear()
+                self._world.makeTurn()
+                print(self._world)
             if choice == 'a':
                 org = self.readOrganism()
                 self._world.addOrganism(org)
                 self.clear()
                 print(self._world)
+            elif choice == 'q':
+                break
             else:
-                self.clear()
-                self._world.makeTurn()
-                print(self._world)
+                print("Unknown command")
