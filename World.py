@@ -35,7 +35,7 @@ class World(object):
                 org.power += 1
             org.frozen = False
             if org.liveLength < 1:
-                print(str(org.__class__.__name__) + ': died of old age at: ' + str(org.position))
+                print(str(org.name) + ': died of old age at: ' + str(org.position))
         self._organisms = [o for o in self._organisms if o.liveLength > 0]
 
         self._organisms.extend(self._newOrganisms)

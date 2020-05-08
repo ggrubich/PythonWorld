@@ -5,6 +5,11 @@ from abc import ABC, abstractmethod
 
 class Organism(ABC):
 
+    def __init_subclass__(cls):
+        if 'name' not in cls.__dict__:
+            cls.name = cls.__name__
+        super().__init_subclass__()
+
     def __init__(self, position, world):
         # state
         self.position = position
@@ -44,4 +49,4 @@ class Organism(ABC):
 
     def __str__(self):
         return '{0}: power: {1} initiative: {2} liveLength {3} position: {4}'\
-                .format(self.__class__.__name__, self.power, self.initiative, self.liveLength, self.position)
+                .format(self.name, self.power, self.initiative, self.liveLength, self.position)

@@ -21,16 +21,13 @@ class Action(ABC):
     def run(self):
         pass
 
-def name(organism):
-    return organism.__class__.__name__
-
 @dataclass
 class Add(Action):
 
     organism: Organism
 
     def __str__(self):
-        return '{}: add at {}'.format(name(self.organism), self.organism.position)
+        return '{}: add at {}'.format(self.organism.name, self.organism.position)
 
     def run(self):
         world = self.organism.world
@@ -42,7 +39,7 @@ class Remove(Action):
     organism: Organism
 
     def __str__(self):
-        return '{}: remove from {}'.format(name(self.organism), self.organism.position)
+        return '{}: remove from {}'.format(self.organism.name, self.organism.position)
 
     def run(self):
         world = self.organism.world
@@ -55,7 +52,7 @@ class Move(Action):
     position: Position
 
     def __str__(self):
-        return '{}: move from {} to {}'.format(name(self.organism), self.organism.position, self.position)
+        return '{}: move from {} to {}'.format(self.organism.name, self.organism.position, self.position)
 
     def run(self):
         self.organism.position = self.position
@@ -66,7 +63,7 @@ class Freeze(Action):
     organism: Organism
 
     def __str__(self):
-        return '{}: gets frozen'.format(name(self.organism))
+        return '{}: gets frozen'.format(self.organism.name)
 
     def run(self):
         self.organism.frozen = True
