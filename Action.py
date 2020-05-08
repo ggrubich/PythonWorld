@@ -31,7 +31,7 @@ class Add(Action):
 
     def run(self):
         world = self.organism.world
-        world.scheduleOrganism(self.organism)
+        world.addOrganism(self.organism)
 
 @dataclass
 class Remove(Action):

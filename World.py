@@ -9,7 +9,6 @@ class World(object):
         self._height = height
         self._turn = 0
         self._organisms = []
-        self._newOrganisms = []
         self._separator = ' '
 
     @property
@@ -46,9 +45,6 @@ class World(object):
                 print(str(org.name) + ': died of old age at: ' + str(org.position))
         self._organisms = [o for o in self._organisms if o.liveLength > 0]
 
-        self._organisms.extend(self._newOrganisms)
-        self._newOrganisms = []
-
         self._turn += 1
 
     def makeMove(self, action):
@@ -57,9 +53,6 @@ class World(object):
 
     def addOrganism(self, newOrganism):
         self._organisms.append(newOrganism)
-
-    def scheduleOrganism(self, organism):
-        self._newOrganisms.append(organism)
 
     def removeOrganism(self, organism):
         self._organisms.remove(organism)
