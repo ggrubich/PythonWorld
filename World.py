@@ -4,13 +4,21 @@ from Organisms.Plant import Plant
 
 class World(object):
 
-    def __init__(self, worldX, worldY):
-        self._worldX = worldX
-        self._worldY = worldY
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
         self._turn = 0
         self._organisms = []
         self._newOrganisms = []
         self._separator = ' '
+
+    @property
+    def width(self):
+        return self._width
+
+    @property
+    def height(self):
+        return self._height
 
     def makeTurn(self):
         actions = []
@@ -58,7 +66,7 @@ class World(object):
         organism.position = Position.invalid()
 
     def positionOnBoard(self, position):
-        return position.x >= 0 and position.y >= 0 and position.x < self._worldX and position.y < self._worldY
+        return position.x >= 0 and position.y >= 0 and position.x < self._width and position.y < self._height
 
     def getOrganismFromPosition(self, position):
         for org in self._organisms:
@@ -105,9 +113,9 @@ class World(object):
 
     def __str__(self):
         result = '\nturn: ' + str(self._turn) + '\n'
-        for wY in range(0, self._worldY):
-            for wX in range(0, self._worldX):
-                org = self.getOrganismFromPosition(Position(wX, wY))
+        for y in range(0, self._height):
+            for x in range(0, self._width):
+                org = self.getOrganismFromPosition(Position(x, y))
                 if org:
                     result += str(org.sign)
                 else:
