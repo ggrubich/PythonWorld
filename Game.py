@@ -75,7 +75,7 @@ class Game(object):
                 self.clear()
                 self._world.makeTurn()
                 print(self._world)
-            if choice == 'a':
+            elif choice == 'a':
                 org = self.readOrganism()
                 self._world.addOrganism(org)
                 self.clear()
