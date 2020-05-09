@@ -9,6 +9,7 @@ class Game(object):
     def __init__(self, width, height, knownOrganisms, startingOrganisms):
         self._knownOrganisms = knownOrganisms
         self._world = World(width, height)
+        self._verbose = False
         for cls, pos in startingOrganisms:
             self._world.addOrganism(cls(pos, self._world))
 
@@ -64,25 +65,34 @@ class Game(object):
         else:
             print('\x1b[2J \x1b[H', end='')
 
-    def run(self):
-        self.clear()
+    def showBoard(self):
+        if self._verbose:
+            for msg in self._world.log:
+                print(msg)
         print(self._world)
 
+    def showMenu(self):
+        print("Commands:")
+        print(' Enter - next turn\ta - add organism')
+        print(' v - verbose log {}\tq - quit'.format('off' if self._verbose else 'on'))
+
+    def run(self):
         for _ in range(0, 100):
-            print('Press `Enter` for next turn, `a` to add an organism, `q` to quit')
-            choice = input('> ').strip()
-            if choice == '':
-                self.clear()
-                self._world.makeTurn()
-                for msg in self._world.log:
-                    print(msg)
-                print(self._world)
-            elif choice == 'a':
-                org = self.readOrganism()
-                self._world.addOrganism(org)
-                self.clear()
-                print(self._world)
-            elif choice == 'q':
+            self.clear()
+            self.showBoard()
+            while True:
+                self.showMenu()
+                choice = input('> ').strip()
+                if choice == '':
+                    self._world.makeTurn()
+                elif choice == 'a':
+                    org = self.readOrganism()
+                    self._world.addOrganism(org)
+                elif choice == 'v':
+                    self._verbose = not self._verbose
+                elif choice == 'q':
+                    return
+                else:
+                    print("Unknown command")
+                    continue
                 break
-            else:
-                print("Unknown command")
