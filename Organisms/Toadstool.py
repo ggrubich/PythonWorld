@@ -1,5 +1,4 @@
 from .Plant import Plant
-from Action import *
 
 
 class Toadstool(Plant):
@@ -11,12 +10,11 @@ class Toadstool(Plant):
         self.powerToReproduce = 5
         self.sign = 'T'
 
-    def consequences(self, atackingOrganism):
-        result = []
-
-        if self.power > atackingOrganism.power:
-            result.append(Remove(atackingOrganism))
+    def consequences(self, attacker):
+        if self.power > attacker.power:
+            self.world.say('{} gets poisoned by {}'.format(attacker, self))
+            self.world.removeOrganism(attacker)
         else:
-            result.append(Remove(self))
-            result.append(Remove(atackingOrganism))
-        return result
+            self.world.say('{} eats {} and dies'.format(attacker, self))
+            self.world.removeOrganism(attacker)
+            self.world.removeOrganism(self)

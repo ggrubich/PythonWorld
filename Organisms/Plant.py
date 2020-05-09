@@ -1,5 +1,4 @@
 from .Organism import Organism
-from Action import *
 import random
 
 
@@ -20,8 +19,9 @@ class Plant(Organism):
             if pomPositions:
                 newPosition = random.choice(pomPositions)
                 newPlant = self.__class__(newPosition, self.world)
+                self.world.say('{} spreads to {}'.format(newPlant, newPosition))
                 self.power = self.power / 2
-                result.append(Add(newPlant))
+                self.world.addOrganism(newPlant)
         return result
 
     def getFreeNeighboringPosition(self, position):

@@ -10,6 +10,7 @@ class World(object):
         self._turn = 0
         self._organisms = []
         self._separator = ' '
+        self._log = []
 
     @property
     def width(self):
@@ -19,22 +20,23 @@ class World(object):
     def height(self):
         return self._height
 
-    def makeTurn(self):
-        actions = []
+    @property
+    def log(self):
+        return self._log
 
+    def say(self, msg):
+        self._log.append(msg)
+
+    def makeTurn(self):
+        self._log = []
         queue = self._organisms.copy()
         queue.sort(key=lambda o: o.initiative, reverse=True)
         for org in queue:
-            if not org.frozen and self.positionOnBoard(org.position):
-                actions = org.move()
-                for a in actions:
-                    self.makeMove(a)
-                actions = []
+            if not org.frozen:
                 if self.positionOnBoard(org.position):
-                    actions = org.action()
-                    for a in actions:
-                        self.makeMove(a)
-                    actions = []
+                    org.move()
+                if self.positionOnBoard(org.position):
+                    org.action()
 
         for org in self._organisms:
             if not org.frozen:
@@ -42,14 +44,10 @@ class World(object):
                 org.power += 1
             org.frozen = False
             if org.liveLength < 1:
-                print(str(org.name) + ': died of old age at: ' + str(org.position))
+                self.say('{} died of old age at {}'.format(org, org.position))
         self._organisms = [o for o in self._organisms if o.liveLength > 0]
 
         self._turn += 1
-
-    def makeMove(self, action):
-        print(action)
-        action.run()
 
     def addOrganism(self, newOrganism):
         self._organisms.append(newOrganism)

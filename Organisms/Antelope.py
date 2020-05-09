@@ -1,7 +1,6 @@
 from .Animal import Animal
 from .Wolf import Wolf
 from Position import Position
-from Action import *
 
 
 class Antelope(Animal):
@@ -21,16 +20,23 @@ class Antelope(Animal):
         return super().move()
 
     def escape(self, threat):
-        pos = Position(
+        destPos = Position(
             self.position.x + 2 * (self.position.x - threat.position.x),
             self.position.y + 2 * (self.position.y - threat.position.y),
         )
-        destPos = pos if self.world.positionOnBoard(pos) else threat.position
+        if self.world.positionOnBoard(destPos):
+            self.world.say('{} escapes from {} from {} to {}'.format(
+                self, threat, self.position, destPos
+            ))
+        else:
+            self.world.say('{} desperately attacks {} at {}'.format(
+                self, threat, threat.position
+            ))
+            destPos = threat.position
         destOrg = self.world.getOrganismFromPosition(destPos)
-        result = [Move(self, destPos)]
+        self.position = destPos
         if destOrg is not None:
-            result.extend(destOrg.consequences(self))
-        return result
+            destOrg.consequences(self)
 
     def getNeighboringPositions(self):
         return self.world.filterPositionsWithoutAnimals(

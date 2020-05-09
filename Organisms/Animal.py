@@ -1,34 +1,28 @@
 from .Organism import Organism
-from Action import *
 import random
 
 
 class Animal(Organism):
 
     def move(self):
-        result = []
         pomPositions = self.getNeighboringPositions()
-        newPosition = None
-
         if pomPositions:
             newPosition = random.choice(pomPositions)
-            result.append(Move(self, newPosition))
             metOrganism = self.world.getOrganismFromPosition(newPosition)
+            self.world.say('{} moves from {} to {}'.format(self, self.position, newPosition))
+            self.position = newPosition
             if metOrganism is not None:
-                result.extend(metOrganism.consequences(self))
-        return result
+                metOrganism.consequences(self)
 
     def action(self):
-        result = []
-        newAnimal = None
         birthPositions = self.getNeighboringBirthPositions()
 
         if self.ifReproduce() and birthPositions:
             newPosition = random.choice(birthPositions)
             newAnimal = self.__class__(newPosition, self.world)
+            self.world.say('{} is born at {}'.format(newAnimal, newPosition))
             self.power = self.power / 2
-            result.append(Add(newAnimal))
-        return result
+            self.world.addOrganism(newAnimal)
 
     def getNeighboringPositions(self):
         return self.world.getNeighboringPositions(self.position)

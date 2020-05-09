@@ -74,6 +74,8 @@ class Game(object):
             if choice == '':
                 self.clear()
                 self._world.makeTurn()
+                for msg in self._world.log:
+                    print(msg)
                 print(self._world)
             elif choice == 'a':
                 org = self.readOrganism()

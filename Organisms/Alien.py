@@ -1,5 +1,4 @@
 from .Organism import Organism
-from Action import *
 
 import random
 
@@ -13,14 +12,13 @@ class Alien(Organism):
         self.sign = 'X'
 
     def move(self):
-        result = []
         positions = self.world.filterFreePositions(
             self.world.getNeighboringPositions(self.position)
         )
         if len(positions) > 0:
             pos = random.choice(positions)
-            result.append(Move(self, pos))
-        return result
+            self.world.say('{} moves from {} to {}'.format(self, self.position, pos))
+            self.position = pos
 
     def action(self):
         organisms = filter(
@@ -30,5 +28,7 @@ class Alien(Organism):
                 self.world.getNeighboringPositions(self.position)
             )
         )
-        result = list(map(Freeze, organisms))
-        return result
+        for org in organisms:
+            if not org.frozen:
+                self.world.say('{} gets frozen by {} at {}'.format(org, self, org.position))
+                org.frozen = True

@@ -1,5 +1,3 @@
-from Action import *
-
 from abc import ABC, abstractmethod
 
 
@@ -36,17 +34,16 @@ class Organism(ABC):
     def action(self):
         pass
 
-    def consequences(self, attackingOrganism):
-        result = []
-        if self.frozen or attackingOrganism.power >= self.power:
-            result.append(Remove(self))
+    def consequences(self, attacker):
+        if self.frozen or attacker.power >= self.power:
+            winner, loser = attacker, self
         else:
-            result.append(Remove(attackingOrganism))
-        return result
+            winner, loser = self, attacker
+        self.world.say('{} gets eaten by {}'.format(loser, winner))
+        self.world.removeOrganism(loser)
 
     def ifReproduce(self):
         return self.power >= self.powerToReproduce
 
     def __str__(self):
-        return '{0}: power: {1} initiative: {2} liveLength {3} position: {4}'\
-                .format(self.name, self.power, self.initiative, self.liveLength, self.position)
+        return self.name
