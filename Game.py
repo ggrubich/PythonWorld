@@ -6,10 +6,11 @@ import os
 
 class Game(object):
 
-    def __init__(self, width, height, knownOrganisms, startingOrganisms):
+    def __init__(self, width, height, knownOrganisms, startingOrganisms, maxTurns=100):
         self._knownOrganisms = knownOrganisms
         self._world = World(width, height)
         self._verbose = False
+        self._maxTurns = maxTurns
         for cls, pos in startingOrganisms:
             self._world.addOrganism(cls(pos, self._world))
 
@@ -77,7 +78,7 @@ class Game(object):
         print(' v - verbose log {}\tq - quit'.format('off' if self._verbose else 'on'))
 
     def run(self):
-        for _ in range(0, 100):
+        while self._world.turn < self._maxTurns:
             self.clear()
             self.showBoard()
             while True:

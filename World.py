@@ -21,6 +21,10 @@ class World(object):
         return self._height
 
     @property
+    def turn(self):
+        return self._turn
+
+    @property
     def log(self):
         return self._log
 
