@@ -108,12 +108,21 @@ class World(object):
 
     def __str__(self):
         result = '\nturn: ' + str(self._turn) + '\n'
+        result += '┌'
+        for x in range(self._height):
+            result += '─'
+        result += '┐\n'
         for y in range(0, self._height):
+            result += '│'
             for x in range(0, self._width):
                 org = self.getOrganismFromPosition(Position(x, y))
                 if org:
                     result += str(org.sign)
                 else:
                     result += self._separator
-            result += '\n'
+            result += '│\n'
+        result += '└'
+        for x in range(self._height):
+            result += '─'
+        result += '┘\n'
         return result
