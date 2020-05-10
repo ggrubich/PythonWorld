@@ -8,7 +8,7 @@ class Toadstool(Plant):
         self.initiative = 0
         self.liveLength = 10
         self.powerToReproduce = 5
-        self.sign = 'T'
+        self.sign = 't'
 
     def consequences(self, attacker):
         if self.power > attacker.power:

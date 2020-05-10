@@ -9,7 +9,7 @@ class Turtle(Animal):
         self.initiative = 3
         self.liveLength = 30
         self.powerToReproduce = 18
-        self.sign = 't'
+        self.sign = 'T'
 
     def getNeighboringPositions(self):
         return self.world.filterPositionsWithoutAnimals(self.world.getNeighboringPositions(self.position))

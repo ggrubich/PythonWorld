@@ -8,4 +8,4 @@ class Dandelion(Plant):
         self.initiative = 0
         self.liveLength = 6
         self.powerToReproduce = 2
-        self.sign = 'D'
+        self.sign = 'd'

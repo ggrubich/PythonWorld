@@ -8,4 +8,4 @@ class Grass(Plant):
         self.initiative = 0
         self.liveLength = 6
         self.powerToReproduce = 3
-        self.sign = 'G'
+        self.sign = 'g'
