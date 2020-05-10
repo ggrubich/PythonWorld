@@ -9,12 +9,12 @@ class Animal(Organism):
         self.stomach = []
 
     def freeze(self):
-        for org in self.stomach:
+        for _, org in self.stomach:
             org.freeze()
         super().freeze()
 
     def unfreeze(self):
-        for org in self.stomach:
+        for _, org in self.stomach:
             org.unfreeze()
         super().unfreeze()
 
