@@ -7,6 +7,7 @@ from Organisms.Wolf import Wolf
 from Organisms.Toadstool import Toadstool
 from Organisms.Antelope import Antelope
 from Organisms.Alien import Alien
+from Organisms.Turtle import Turtle
 
 def main():
     knownOrganisms = [
@@ -25,7 +26,8 @@ def main():
         (Wolf, Position(7, 7)),
         (Toadstool, Position(4, 4)),
         (Antelope, Position(6, 7)),
-        (Alien, Position(6, 6)),
+        (Turtle, Position(7, 6)),
+        (Alien, Position(2, 3)),
     ]
     game = Game(8, 8, knownOrganisms, startingOrganisms)
     game.run()

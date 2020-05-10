@@ -4,6 +4,10 @@ import random
 
 class Animal(Organism):
 
+    def __init__(self, position, world):
+        super().__init__(position, world)
+        self.stomach = []
+
     def move(self):
         pomPositions = self.getNeighboringPositions()
         if pomPositions:
@@ -15,6 +19,8 @@ class Animal(Organism):
                 metOrganism.consequences(self)
 
     def action(self):
+        self.spitOut()
+
         birthPositions = self.getNeighboringBirthPositions()
 
         if self.ifReproduce() and birthPositions:
@@ -23,6 +29,29 @@ class Animal(Organism):
             self.world.say('{} is born at {}'.format(newAnimal, newPosition))
             self.power = self.power / 2
             self.world.addOrganism(newAnimal)
+
+    def swallow(self, organism):
+        self.stomach.append((self.world.turn, organism))
+
+    def spitOut(self):
+        out = []
+        leave = []
+        for turn, org in self.stomach:
+            if turn < self.world.turn:
+                out.append((turn, org))
+            else:
+                leave.append((turn, org))
+        while len(out) > 0:
+            positions = self.world.filterFreePositions(
+                self.world.getNeighboringPositions(self.position)
+            )
+            if len(positions) == 0:
+                break
+            destPos = random.choice(positions)
+            _, org = out.pop()
+            self.world.say('{} spits out {} to {}'.format(self, org, destPos))
+            org.position = destPos
+        self.stomach = out + leave
 
     def getNeighboringPositions(self):
         return self.world.getNeighboringPositions(self.position)
