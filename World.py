@@ -47,7 +47,8 @@ class World(object):
             if not org.frozen:
                 org.liveLength -= 1
                 org.power += 1
-            org.frozen = False
+            else:
+                org.unfreeze()
             if org.liveLength < 1:
                 self.say('{} died of old age at {}'.format(org, org.position))
         self._organisms = [o for o in self._organisms if o.liveLength > 0]

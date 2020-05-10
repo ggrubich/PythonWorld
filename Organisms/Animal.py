@@ -8,6 +8,16 @@ class Animal(Organism):
         super().__init__(position, world)
         self.stomach = []
 
+    def freeze(self):
+        for org in self.stomach:
+            org.freeze()
+        super().freeze()
+
+    def unfreeze(self):
+        for org in self.stomach:
+            org.unfreeze()
+        super().unfreeze()
+
     def move(self):
         pomPositions = self.getNeighboringPositions()
         if pomPositions:

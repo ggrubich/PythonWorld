@@ -26,6 +26,12 @@ class Organism(ABC):
     def initParams(self):
         pass
 
+    def freeze(self):
+        self.frozen = True
+
+    def unfreeze(self):
+        self.frozen = False
+
     @abstractmethod
     def move(self):
         pass

@@ -31,4 +31,4 @@ class Alien(Organism):
         for org in organisms:
             if not org.frozen:
                 self.world.say('{} gets frozen by {} at {}'.format(org, self, org.position))
-                org.frozen = True
+                org.freeze()
