@@ -32,6 +32,12 @@ class Organism(ABC):
     def unfreeze(self):
         self.frozen = False
 
+    def add(self):
+        self.world.addOrganism(self)
+
+    def remove(self):
+        self.world.removeOrganism(self)
+
     @abstractmethod
     def move(self):
         pass
@@ -46,7 +52,7 @@ class Organism(ABC):
         else:
             winner, loser = self, attacker
         self.world.say('{} gets eaten by {}'.format(loser, winner))
-        self.world.removeOrganism(loser)
+        loser.remove()
 
     def ifReproduce(self):
         return self.power >= self.powerToReproduce

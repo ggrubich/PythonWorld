@@ -13,8 +13,8 @@ class Toadstool(Plant):
     def consequences(self, attacker):
         if self.power > attacker.power:
             self.world.say('{} gets poisoned by {}'.format(attacker, self))
-            self.world.removeOrganism(attacker)
+            attacker.remove()
         else:
             self.world.say('{} eats {} and dies'.format(attacker, self))
-            self.world.removeOrganism(attacker)
-            self.world.removeOrganism(self)
+            attacker.remove()
+            self.remove()

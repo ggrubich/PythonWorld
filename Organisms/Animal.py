@@ -18,6 +18,16 @@ class Animal(Organism):
             org.unfreeze()
         super().unfreeze()
 
+    def add(self):
+        for org in self.stomach:
+            org.add()
+        super().add()
+
+    def remove(self):
+        for org in self.stomach:
+            org.remove()
+        super().remove()
+
     def move(self):
         pomPositions = self.getNeighboringPositions()
         if pomPositions:
@@ -38,7 +48,7 @@ class Animal(Organism):
             newAnimal = self.__class__(newPosition, self.world)
             self.world.say('{} is born at {}'.format(newAnimal, newPosition))
             self.power = self.power / 2
-            self.world.addOrganism(newAnimal)
+            newAnimal.add()
 
     def swallow(self, organism):
         self.stomach.append((self.world.turn, organism))

@@ -38,4 +38,4 @@ class KillExcessive(Modifier):
         excessive = self.getExcessive(world)
         for org in excessive:
             world.say('excessive {} removed from {}'.format(org, org.position))
-            world.removeOrganism(org)
+            org.remove()

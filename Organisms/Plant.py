@@ -21,7 +21,7 @@ class Plant(Organism):
                 newPlant = self.__class__(newPosition, self.world)
                 self.world.say('{} spreads to {}'.format(newPlant, newPosition))
                 self.power = self.power / 2
-                self.world.addOrganism(newPlant)
+                newPlant.add()
         return result
 
     def getFreeNeighboringPosition(self, position):

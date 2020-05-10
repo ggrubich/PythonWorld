@@ -19,7 +19,8 @@ class Game(object):
         self._verbose = False
         self._maxTurns = maxTurns
         for cls, pos in startingOrganisms:
-            self._world.addOrganism(cls(pos, self._world))
+            org = cls(pos, self._world)
+            org.add()
 
     def readInt(self):
         choice = input('> ')
@@ -96,7 +97,7 @@ class Game(object):
                 elif choice == 'a':
                     org = self.readOrganism()
                     self._world.say('added {} at {}'.format(org, org.position))
-                    self._world.addOrganism(org)
+                    org.add()
                 elif choice == 'v':
                     self._verbose = not self._verbose
                 elif choice == 'q':
