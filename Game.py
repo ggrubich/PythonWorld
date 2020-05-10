@@ -6,9 +6,16 @@ import os
 
 class Game(object):
 
-    def __init__(self, width, height, knownOrganisms, startingOrganisms, maxTurns=100):
+    def __init__(
+            self,
+            width,
+            height,
+            knownOrganisms,
+            startingOrganisms,
+            modifiers,
+            maxTurns=100):
         self._knownOrganisms = knownOrganisms
-        self._world = World(width, height)
+        self._world = World(width, height, modifiers)
         self._verbose = False
         self._maxTurns = maxTurns
         for cls, pos in startingOrganisms:

@@ -8,6 +8,7 @@ from Organisms.Toadstool import Toadstool
 from Organisms.Antelope import Antelope
 from Organisms.Alien import Alien
 from Organisms.Turtle import Turtle
+from Modifier import KillExcessive
 
 def main():
     knownOrganisms = [
@@ -29,7 +30,8 @@ def main():
         (Turtle, Position(7, 6)),
         (Alien, Position(2, 3)),
     ]
-    game = Game(8, 8, knownOrganisms, startingOrganisms)
+    modifiers = [KillExcessive(2, 1)]
+    game = Game(8, 8, knownOrganisms, startingOrganisms, modifiers)
     game.run()
 
 if __name__ == '__main__':

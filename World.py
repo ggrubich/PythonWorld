@@ -4,13 +4,14 @@ from Organisms.Plant import Plant
 
 class World(object):
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, modifiers):
         self._width = width
         self._height = height
         self._turn = 0
         self._organisms = []
         self._separator = ' '
         self._log = []
+        self._modifiers = modifiers
 
     @property
     def width(self):
@@ -50,6 +51,8 @@ class World(object):
             if org.liveLength < 1:
                 self.say('{} died of old age at {}'.format(org, org.position))
         self._organisms = [o for o in self._organisms if o.liveLength > 0]
+        for mod in self._modifiers:
+            mod.apply(self)
 
         self._turn += 1
 
@@ -59,6 +62,9 @@ class World(object):
     def removeOrganism(self, organism):
         self._organisms.remove(organism)
         organism.position = Position.invalid()
+
+    def allOrganisms(self):
+        return self._organisms
 
     def positionOnBoard(self, position):
         return position.x >= 0 and position.y >= 0 and position.x < self._width and position.y < self._height
