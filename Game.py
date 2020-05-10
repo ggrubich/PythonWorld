@@ -13,7 +13,7 @@ class Game(object):
             knownOrganisms,
             startingOrganisms,
             modifiers,
-            maxTurns=100):
+            maxTurns=None):
         self._knownOrganisms = knownOrganisms
         self._world = World(width, height, modifiers)
         self._verbose = False
@@ -85,7 +85,7 @@ class Game(object):
         print(' v - verbose log {}\tq - quit'.format('off' if self._verbose else 'on'))
 
     def run(self):
-        while self._world.turn < self._maxTurns:
+        while self._maxTurns is None or self._world.turn < self._maxTurns:
             self.clear()
             self.showBoard()
             while True:
