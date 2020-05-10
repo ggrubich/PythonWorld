@@ -95,6 +95,7 @@ class Game(object):
                     self._world.makeTurn()
                 elif choice == 'a':
                     org = self.readOrganism()
+                    self._world.say('added {} at {}'.format(org, org.position))
                     self._world.addOrganism(org)
                 elif choice == 'v':
                     self._verbose = not self._verbose
